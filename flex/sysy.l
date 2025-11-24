@@ -119,6 +119,10 @@ IDENTIFIER {LETTER}({LETTER}|{DIGIT})*
 MultilineComment "/*"([^\*]|(\*)*[^\*/])*(\*)*"*/"
 SingleLineComment "//".*$
 
+[ \n] {}
+[ \r\t] {}
+[ \n\t]+ {}
+
 WHITESPACE [ \t\r\n]
 
 %%
