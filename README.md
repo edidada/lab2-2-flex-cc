@@ -108,11 +108,8 @@ https://www.cs.princeton.edu/~appel/modern/c/software/flex/flex_toc.html
  https://gitlab.eduxiji.net/nscscc/compiler2022/-/blob/master/SysY2022%E8%AF%AD%E8%A8%80%E5%AE%9A%E4%B9%89-V1.pdf
  
 # 编译环境
-
 (1) Ubuntu 18.04 LTS 及以上
-
 (2) flex 2.6及以上
-
 (3) GNU Build-essential (gcc,g++,...)，g++ 7.5及以上
 
 # 评测
