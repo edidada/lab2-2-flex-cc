@@ -103,10 +103,11 @@ HEX_DIGIT [0-9a-fA-F]
 OCT_DIGIT [0-7]
 
 DECIMAL_INT (0|[1-9][0-9]*)
-OCTAL_INT 0[0-7]*
+OCTAL_INT 0[0-7]+
+OCTAL_INT_INVALID 0[0-9]*[89][0-9]*
 HEX_INT 0[xX]{HEX_DIGIT}+
 
-INTEGER {DECIMAL_INT}|{OCTAL_INT}|{HEX_INT}
+INTEGER ({OCTAL_INT_INVALID}|{OCTAL_INT}|{HEX_INT}|{DECIMAL_INT})
 
 DECIMAL_FLOAT ([0-9]+\.[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?[fF]?
 EXPONENT_FLOAT [0-9]+[eE][-+]?[0-9]+[fF]?
@@ -118,10 +119,6 @@ IDENTIFIER {LETTER}({LETTER}|{DIGIT})*
 
 MultilineComment "/*"([^\*]|(\*)*[^\*/])*(\*)*"*/"
 SingleLineComment "//".*$
-
-[ \n] {}
-[ \r\t] {}
-[ \n\t]+ {}
 
 WHITESPACE [ \t\r\n]
 
@@ -170,6 +167,11 @@ WHITESPACE [ \t\r\n]
     // 检查是否是关键字（flex会自动优先匹配长规则，所以这里只可能是标识符）
     printf("%s : ID\n", yytext);
     return ID;
+}
+
+{OCTAL_INT_INVALID} {
+    printf("Lexical error - line %d : %s\n", yylineno, yytext);
+    return LEX_ERR;
 }
 
 {INTEGER} {
